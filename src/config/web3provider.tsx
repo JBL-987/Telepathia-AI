@@ -7,8 +7,8 @@ import { XellarKitProvider, defaultConfig, darkTheme } from "@xellar/kit";
 import "@rainbow-me/rainbowkit/styles.css";
 
 const customRainbowTheme = rainbowDarkTheme({
-  accentColor: '#808080', 
-  accentColorForeground: 'white', 
+  accentColor: '#ffffff', 
+  accentColorForeground: 'black', 
   borderRadius: 'medium',
 });
 
