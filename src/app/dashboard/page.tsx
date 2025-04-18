@@ -23,11 +23,7 @@ export default function ChatPage() {
   const [isAiResponding, setIsAiResponding] = useState<boolean>(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
   const [isStoringToBlockchain, setIsStoringToBlockchain] = useState<boolean>(false);
-  
-  // Simple chat history
   const [chatHistory, setChatHistory] = useState<Conversation[]>([]);
-  
-  // Lisk blockchain connection status
   const [isConnectedToLisk, setIsConnectedToLisk] = useState<boolean>(false);
   const [liskNodeInfo, setLiskNodeInfo] = useState<any>(null);
   
@@ -69,11 +65,8 @@ export default function ChatPage() {
     }));
   }, []);
   
-  // Connect to Lisk blockchain node
   const connectToLiskNode = async () => {
     try {
-      // Simulate connecting to a Lisk node
-      // In a real implementation, you would use Lisk SDK or API
       setTimeout(() => {
         setIsConnectedToLisk(true);
         setLiskNodeInfo({
@@ -82,8 +75,6 @@ export default function ChatPage() {
           version: "5.2.0",
           height: 15842639
         });
-        
-        // Simulate loading chat history from blockchain
         loadChatHistoryFromBlockchain();
       }, 1500);
     } catch (err: any) {
@@ -98,11 +89,8 @@ export default function ChatPage() {
     }
   };
   
-  // Load chat history from blockchain (simulated)
   const loadChatHistoryFromBlockchain = async () => {
     try {
-      // Simulate fetching chat history from blockchain
-      // In a real implementation, you would query Lisk blockchain
       setTimeout(() => {
         const mockHistory: Conversation[] = [
           {
@@ -156,7 +144,6 @@ export default function ChatPage() {
     }
   };
   
-  // Store current chat to blockchain
   const storeChatToBlockchain = async () => {
     if (currentConversation.message.length === 0) {
       Swal.fire({
@@ -171,11 +158,7 @@ export default function ChatPage() {
     
     try {
       setIsStoringToBlockchain(true);
-      
-      // Simulate storing to blockchain
-      // In a real implementation, you would use Lisk SDK to send transaction
       setTimeout(() => {
-        // Add to local history first
         const chatWithId = {
           ...currentConversation,
           blockchainTxId: "tx_" + Math.random().toString(36).substring(2, 15)
@@ -394,7 +377,6 @@ export default function ChatPage() {
 
   return (
     <div className="min-h-screen flex flex-col lg:flex-row bg-black text-white">
-      {/* Mobile Header */}
       <header className="lg:hidden bg-black fixed top-0 left-0 right-0 z-40">
         <div className="flex justify-between items-center p-4">
           <button 
@@ -408,8 +390,6 @@ export default function ChatPage() {
           <div className="w-6" />
         </div>
       </header>
-
-      {/* Sidebar - Chat History */}
       <div 
         className={`fixed inset-0 bg-black bg-opacity-50 z-30 lg:relative lg:bg-opacity-100 lg:block transition-all duration-300 ${
           isSidebarOpen ? 'opacity-100' : 'opacity-0 pointer-events-none lg:opacity-100 lg:pointer-events-auto'
@@ -428,7 +408,6 @@ export default function ChatPage() {
               <span>New Chat</span>
             </button>
           </div>
-          
           <div className="h-14 flex items-center mx-4 border-b border-gray-800">
             <div className="flex items-center space-x-2">
               <Database size={18} className={isConnectedToLisk ? "text-green-500" : "text-gray-500"} />
@@ -437,7 +416,6 @@ export default function ChatPage() {
               </span>
             </div>
           </div>
-          
           <div className="py-2">
             <h2 className="px-4 py-2 text-sm text-gray-400">Chat History</h2>
             <div className="space-y-1">
@@ -465,10 +443,7 @@ export default function ChatPage() {
           </div>
         </div>
       </div>
-
-      {/* Main Chat Area */}
       <div className="flex-1 flex flex-col h-screen lg:h-auto">
-        {/* Chat header */}
         <div className="p-4 border-b border-gray-800 flex items-center justify-between mt-14 lg:mt-0">
           <div className="flex items-center space-x-3">
             <Bot className="h-6 w-6 text-white" />
@@ -496,8 +471,6 @@ export default function ChatPage() {
             </button>
           </div>
         </div>
-        
-        {/* Messages area */}
         <div className="flex-1 overflow-y-auto p-4 space-y-4">
           {currentConversation.message.length === 0 ? (
             <div className="h-full flex items-center justify-center text-center text-gray-400">
@@ -521,7 +494,6 @@ export default function ChatPage() {
               />
             ))
           )}
-          
           {isAiResponding && (
             <div className="flex justify-start">
               <div className="bg-black border border-gray-800 text-white rounded-lg p-3 animate-pulse flex items-center space-x-2">
@@ -538,11 +510,8 @@ export default function ChatPage() {
               {error}
             </div>
           )}
-          
           <div ref={messagesEndRef} />
         </div>
-        
-        {/* Message input */}
         <form 
           onSubmit={handleSendMessage} 
           className="p-4 border-t border-gray-800 bg-black"
