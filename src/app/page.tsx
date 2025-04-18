@@ -1,6 +1,21 @@
+"use client";
+
 import Spline from '@splinetool/react-spline/next';
+import { useAccount } from 'wagmi';
+import { useRouter } from 'next/navigation';
 
 export default function Home() {
+  const { isConnected } = useAccount();
+  const router = useRouter();
+  
+  const handleGetStarted = () => {
+    if (isConnected) {
+      router.push('/chatting');
+    } else {
+      alert('Please connect your wallet first to access the chat!');
+    }
+  };
+  
   return (
    <div className="relative h-screen w-screen overflow-hidden font-[family-name:var(--font-geist-sans)]">
       <div className="fixed inset-0 w-full h-full -z-10">
@@ -19,7 +34,7 @@ export default function Home() {
           <div className="flex flex-col sm:flex-row gap-4">
             <a
               className="rounded-full bg-white text-black border border-transparent transition-all duration-300 ease-out transform hover:scale-105 hover:bg-black hover:text-white hover:border-white flex items-center justify-center gap-2 px-6 py-3 font-medium shadow-lg"
-              href="/chatting"
+              onClick={handleGetStarted}
             >
               Get started
             </a>
